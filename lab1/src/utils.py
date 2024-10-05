@@ -75,7 +75,9 @@ class Loss:
         """
         raise NotImplementedError
 
-    def backward(self, x: np.ndarray, y_pred: np.ndarray, y_true: np.ndarray) -> dict[str, np.ndarray]:
+    def backward(
+        self, x: np.ndarray, y_pred: np.ndarray, y_true: np.ndarray
+    ) -> dict[str, np.ndarray]:
         r"""Compute the gradients of the loss with respect to the parameters
 
         Args:
@@ -106,7 +108,9 @@ class SGD:
         step: Update the parameters with the gradients
     """
 
-    def __init__(self, params: Iterator, lr: float, lr_decay: float = 0.99, decay_every: int = 10):
+    def __init__(
+        self, params: Iterator, lr: float, lr_decay: float = 0.99, decay_every: int = 10
+    ):
         r"""Initialize the optimizer.
 
         Args:
@@ -199,7 +203,13 @@ class DataLoader(Generic[T]):
         _remove_index_column: Remove the index column from the data
     """
 
-    def __init__(self, dataset: Type[T], batch_size: int, shuffle: bool = True, train: bool = False):
+    def __init__(
+        self,
+        dataset: Type[T],
+        batch_size: int,
+        shuffle: bool = True,
+        train: bool = False,
+    ):
         r"""Initialize the data loader.
 
         Args:
