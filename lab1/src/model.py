@@ -15,7 +15,9 @@ def _predict_unimplemented(self, *input: Any) -> None:
         instead of this since the former takes care of running the
         registered hooks while the latter silently ignores them.
     """
-    raise NotImplementedError(f'Model [{type(self).__name__}] is missing the required "predict" function')
+    raise NotImplementedError(
+        f'Model [{type(self).__name__}] is missing the required "predict" function'
+    )
 
 
 class BaseModel:
@@ -58,7 +60,7 @@ class BaseModel:
 
         if self.call_super_init is False and bool(args):
             raise TypeError(
-                f"{type(self).__name__}.__init__() takes 1 positional argument but {len(args) + 1} were" " given"
+                f"{type(self).__name__}.__init__() takes 1 positional argument but {len(args) + 1} were given"
             )
 
         """

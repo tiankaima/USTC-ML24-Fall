@@ -43,7 +43,9 @@ def main():
 
     dataset = data_preprocessing_regression(cfg.data_dir)
 
-    trainloader, testloader = data_split_regression(dataset, cfg.batch_size, cfg.shuffle)
+    trainloader, testloader = data_split_regression(
+        dataset, cfg.batch_size, cfg.shuffle
+    )
 
     results_path = Path(cfg.results_path) / get_date_str()
 
