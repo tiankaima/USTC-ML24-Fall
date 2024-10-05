@@ -23,7 +23,9 @@ from utils import (
 
 
 # 1.1
-def data_preprocessing_regression(data_path: str, saved_to_disk: bool = False) -> Dataset:
+def data_preprocessing_regression(
+    data_path: str, saved_to_disk: bool = False
+) -> Dataset:
     r"""Load and preprocess the training data for the regression task.
 
     Args:
@@ -46,7 +48,9 @@ def data_preprocessing_regression(data_path: str, saved_to_disk: bool = False) -
     return NotImplementedError
 
 
-def data_split_regression(dataset: Dataset, batch_size: int, shuffle: bool) -> Tuple[DataLoader]:
+def data_split_regression(
+    dataset: Dataset, batch_size: int, shuffle: bool
+) -> Tuple[DataLoader]:
     r"""Split the dataset and make it ready for training.
 
     Args:
@@ -135,7 +139,9 @@ class MSELoss(Loss):
         # TODO: Compute the mean squared error loss
         return NotImplementedError
 
-    def backward(self, x: np.ndarray, y_pred: np.ndarray, y_true: np.ndarray) -> dict[str, np.ndarray]:
+    def backward(
+        self, x: np.ndarray, y_pred: np.ndarray, y_true: np.ndarray
+    ) -> dict[str, np.ndarray]:
         r"""Compute the gradients of the loss with respect to the parameters.
 
         Args:
@@ -229,7 +235,9 @@ class TrainerR:
 
 
 # 1.6
-def eval_LinearRegression(model: LinearRegression, loader: DataLoader) -> Tuple[float, float]:
+def eval_LinearRegression(
+    model: LinearRegression, loader: DataLoader
+) -> Tuple[float, float]:
     r"""Evaluate the model on the given data.
 
     Args:
@@ -259,7 +267,9 @@ def eval_LinearRegression(model: LinearRegression, loader: DataLoader) -> Tuple[
 
 
 # 2.1
-def data_preprocessing_classification(data_path: str, mean: float, saved_to_disk: bool = False) -> Dataset:
+def data_preprocessing_classification(
+    data_path: str, mean: float, saved_to_disk: bool = False
+) -> Dataset:
     r"""Load and preprocess the training data for the classification task.
 
     Args:
@@ -381,7 +391,9 @@ class BCELoss(Loss):
         # TODO: Compute the binary cross entropy loss
         return NotImplementedError
 
-    def backward(self, x: np.ndarray, y_pred: np.ndarray, y_true: np.ndarray) -> dict[str, np.ndarray]:
+    def backward(
+        self, x: np.ndarray, y_pred: np.ndarray, y_true: np.ndarray
+    ) -> dict[str, np.ndarray]:
         r"""Compute the gradients of the loss with respect to the parameters.
 
         Args:
@@ -413,7 +425,13 @@ class TrainerC:
     """
 
     def __init__(
-        self, model: BaseModel, dataset: np.ndarray, loss: Loss, optimizer: GD, config: TrainConfigC, results_path: Path
+        self,
+        model: BaseModel,
+        dataset: np.ndarray,
+        loss: Loss,
+        optimizer: GD,
+        config: TrainConfigC,
+        results_path: Path,
     ):
         self.model = model
         self.dataset = dataset

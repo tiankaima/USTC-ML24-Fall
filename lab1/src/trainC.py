@@ -117,7 +117,9 @@ def main():
 
     train_set, val_set = data_split_classification(dataset)
 
-    results_path = Path(cfg.results_path + f"_{cfg.task}") if cfg.results_path else Path("results")
+    results_path = (
+        Path(cfg.results_path + f"_{cfg.task}") if cfg.results_path else Path("results")
+    )
 
     train_set = train_set.to_pandas().drop(columns=["__index_level_0__"])
 
@@ -131,7 +133,12 @@ def main():
         model=model,
         dataset=train_set.values,
         loss=BCELoss(),
-        optimizer=GD(model.parameters(), lr=cfg.lr, lr_decay=cfg.lr_decay, decay_every=cfg.decay_every),
+        optimizer=GD(
+            model.parameters(),
+            lr=cfg.lr,
+            lr_decay=cfg.lr_decay,
+            decay_every=cfg.decay_every,
+        ),
         config=cfg,
         results_path=results_path,
     ).train()
