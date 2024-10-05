@@ -114,9 +114,13 @@ def main():
     # Load the dataset
     dataset = data_preprocessing_regression(cfg.data_dir)
 
-    trainloader, testloader = data_split_regression(dataset, cfg.batch_size, cfg.shuffle)
+    trainloader, testloader = data_split_regression(
+        dataset, cfg.batch_size, cfg.shuffle
+    )
 
-    results_path = Path(cfg.results_path + f"_{cfg.task}") if cfg.results_path else Path("results")
+    results_path = (
+        Path(cfg.results_path + f"_{cfg.task}") if cfg.results_path else Path("results")
+    )
 
     # Train
     print("***** Running training *****")
@@ -131,7 +135,12 @@ def main():
         model=model,
         train_loader=trainloader,
         loss=MSELoss(),
-        optimizer=SGD(model.parameters(), lr=cfg.lr, lr_decay=cfg.lr_decay, decay_every=cfg.decay_every),
+        optimizer=SGD(
+            model.parameters(),
+            lr=cfg.lr,
+            lr_decay=cfg.lr_decay,
+            decay_every=cfg.decay_every,
+        ),
         config=cfg,
         results_path=results_path,
     ).train()
