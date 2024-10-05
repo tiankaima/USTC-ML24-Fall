@@ -20,20 +20,21 @@ from submission import (
     eval_LinearRegression,
 )
 
+
 def main():
     parser = argparse.ArgumentParser()
 
     parser.add_argument("--results_path", type=str, default=None)
 
     args = parser.parse_args()
-    
+
     with open(Path(args.results_path) / "config.yaml", "r") as f:
         cfg = TrainConfigR(**yaml.safe_load(f))
 
     np.random.seed(cfg.seed)
 
     if cfg.task == "Regression":
-        model = LinearRegression(cfg.in_features,cfg.out_features)
+        model = LinearRegression(cfg.in_features, cfg.out_features)
         model.load_from_state_dict(load(Path(args.results_path) / "model.pkl"))
     elif cfg.task == "Classification":
         raise ValueError("Use evalC.py for classification")
@@ -42,7 +43,9 @@ def main():
 
     dataset = data_preprocessing_regression(cfg.data_dir)
 
-    trainloader, testloader = data_split_regression(dataset, cfg.batch_size, cfg.shuffle)
+    trainloader, testloader = data_split_regression(
+        dataset, cfg.batch_size, cfg.shuffle
+    )
 
     results_path = Path(cfg.results_path) / get_date_str()
 
@@ -54,6 +57,7 @@ def main():
     mu, relative_error = eval_LinearRegression(model, testloader)
     print(f"Average prediction: {mu}")
     print(f"Relative error: {relative_error}")
+
 
 if __name__ == "__main__":
     main()
