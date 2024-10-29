@@ -23,7 +23,7 @@ standard_train=sc.transform(X_train)
 standard_test=sc.transform(X_test)
 
 
-#构建mlp模型
+#构建 mlp 模型
 '''
 在此填入你的代码
 '''
@@ -39,8 +39,8 @@ standard_test=sc.transform(X_test)
 
 
 #查看模型结果
-print("测试集合的y值：",list(Y_test))
-print("神经网络预测的的y值：",list(result))
+print("测试集合的 y 值：",list(Y_test))
+print("神经网络预测的的 y 值：",list(result))
 print("预测的准确率为：",mlp.score(standard_test,Y_test))
 print("层数为：",mlp.n_layers_)
 print("迭代次数为：",mlp.n_iter_)
@@ -63,13 +63,13 @@ class NeuralNetwork:
        self.bias_hidden = np.zeros((1, self.hidden_size))
        self.bias_output = np.zeros((1, self.output_size))
 
-   def sigmoid(self, x): #sigmoid计算方式
+   def sigmoid(self, x): #sigmoid 计算方式
        '''
        在此填入你的代码
        '''
        return
 
-   def sigmoid_derivative(self, x): #sigmoid导数计算方式
+   def sigmoid_derivative(self, x): #sigmoid 导数计算方式
        '''
        在此填入你的代码
        '''
@@ -129,6 +129,6 @@ predictions = nn.predict(standard_test)
 accuracy = accuracy_score(Y_test, np.argmax(predictions, axis=1))
 
 # 查看模型结果
-print("测试集合的y值：", list(Y_test))
-print("神经网络预测的的y值：", list(np.argmax(predictions, axis=1)))
+print("测试集合的 y 值：", list(Y_test))
+print("神经网络预测的的 y 值：", list(np.argmax(predictions, axis=1)))
 print("预测的准确率为：", accuracy)
