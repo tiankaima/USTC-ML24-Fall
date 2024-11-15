@@ -12,10 +12,7 @@ df["target"] = list(iris.target)
 X = df.iloc[:, 0:4]
 Y = df.iloc[:, 4]
 # 划分数据
-
-"""
-在此填入你的代码
-"""
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=0)
 
 sc = StandardScaler()
 sc.fit(X)
@@ -24,17 +21,11 @@ standard_test = sc.transform(X_test)
 
 
 # 构建 mlp 模型
-"""
-在此填入你的代码
-"""
+mlp = MLPClassifier(hidden_layer_sizes=(10,), max_iter=1000)
 # 拟合数据
-"""
-在此填入你的代码
-"""
+mlp.fit(standard_train, Y_train)
 # 得到预测结果
-"""
-在此填入你的代码
-"""
+result = mlp.predict(standard_test)
 
 
 # 查看模型结果
@@ -63,27 +54,36 @@ class NeuralNetwork:
         self.bias_output = np.zeros((1, self.output_size))
 
     def sigmoid(self, x):  # sigmoid 计算方式
-        """
-        在此填入你的代码
-        """
-        return
+        return 1 / (1 + np.exp(-x))
 
     def sigmoid_derivative(self, x):  # sigmoid 导数计算方式
-        """
-        在此填入你的代码
-        """
-        return
+        return x * (1 - x)
 
     def forward(self, X):
-        """
-        在此填入你的代码
-        """
-        return
+        # 计算隐藏层输出
+        self.hidden = np.dot(X, self.weights_input_hidden) + self.bias_hidden
+        self.hidden_output = self.sigmoid(self.hidden)
+
+        # 计算输出层输出
+        self.output = np.dot(self.hidden_output, self.weights_hidden_output) + self.bias_output
+        self.output_output = self.sigmoid(self.output)
+
+        return self.output_output
 
     def backward(self, X, y, output, learning_rate):
-        """
-        在此填入你的代码
-        """
+        # 计算输出层的误差
+        self.output_error = y - output
+        self.output_delta = self.output_error * self.sigmoid_derivative(output)
+
+        # 计算隐藏层的误差
+        self.hidden_error = self.output_delta.dot(self.weights_hidden_output.T)
+        self.hidden_delta = self.hidden_error * self.sigmoid_derivative(self.hidden_output)
+
+        # 更新权重和偏置
+        self.weights_hidden_output += self.hidden_output.T.dot(self.output_delta) * learning_rate
+        self.weights_input_hidden += X.T.dot(self.hidden_delta) * learning_rate
+        self.bias_output += np.sum(self.output_delta) * learning_rate
+        self.bias_hidden += np.sum(self.hidden_delta) * learning_rate
 
     def train(self, X, y, epochs, learning_rate):
         for epoch in range(epochs):
@@ -117,7 +117,7 @@ Y_train_encoded = one_hot_encode(Y_train)
 
 # 训练神经网络
 print("training.......")
-nn.train(standard_train, Y_train_encoded, epochs=1000, learning_rate=0.01)
+nn.train(standard_train, Y_train_encoded, epochs=1000, learning_rate=0.1)
 
 # 预测测试集
 predictions = nn.predict(standard_test)
