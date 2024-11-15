@@ -15,9 +15,7 @@ def _predict_unimplemented(self, *input: Any) -> None:
         instead of this since the former takes care of running the
         registered hooks while the latter silently ignores them.
     """
-    raise NotImplementedError(
-        f'Model [{type(self).__name__}] is missing the required "predict" function'
-    )
+    raise NotImplementedError(f'Model [{type(self).__name__}] is missing the required "predict" function')
 
 
 class BaseModel:

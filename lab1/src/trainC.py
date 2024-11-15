@@ -117,9 +117,7 @@ def main():
 
     train_set, val_set = data_split_classification(dataset)
 
-    results_path = (
-        Path(cfg.results_path + f"_{cfg.task}") if cfg.results_path else Path("results")
-    )
+    results_path = Path(cfg.results_path + f"_{cfg.task}") if cfg.results_path else Path("results")
 
     train_set = train_set.to_pandas().drop(columns=["__index_level_0__"])
 

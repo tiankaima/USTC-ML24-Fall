@@ -29,9 +29,7 @@ from utils import (
 
 
 # 1.1
-def data_preprocessing_regression(
-    data_path: str, saved_to_disk: bool = False
-) -> Dataset:
+def data_preprocessing_regression(data_path: str, saved_to_disk: bool = False) -> Dataset:
     r"""Load and preprocess the training data for the regression task.
 
     Args:
@@ -60,9 +58,7 @@ def data_preprocessing_regression(
     return dataset
 
 
-def data_split_regression(
-    dataset: Dataset, batch_size: int, shuffle: bool
-) -> Tuple[DataLoader]:
+def data_split_regression(dataset: Dataset, batch_size: int, shuffle: bool) -> Tuple[DataLoader]:
     r"""Split the dataset and make it ready for training.
 
     Args:
@@ -86,9 +82,7 @@ def data_split_regression(
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=shuffle)
     val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=shuffle)
     test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=shuffle)
-    train_total_loader = DataLoader(
-        train_test_split["train"], batch_size=batch_size, shuffle=shuffle
-    )
+    train_total_loader = DataLoader(train_test_split["train"], batch_size=batch_size, shuffle=shuffle)
     all_loader = DataLoader(dataset, batch_size=batch_size, shuffle=shuffle)
 
     # train:
@@ -171,9 +165,7 @@ class MSELoss(Loss):
         # Compute the mean squared error loss. Make sure y_pred and y_true have the same shape
         return np.mean((y_pred - y_true) ** 2)
 
-    def backward(
-        self, x: np.ndarray, y_pred: np.ndarray, y_true: np.ndarray
-    ) -> dict[str, np.ndarray]:
+    def backward(self, x: np.ndarray, y_pred: np.ndarray, y_true: np.ndarray) -> dict[str, np.ndarray]:
         r"""Compute the gradients of the loss with respect to the parameters.
 
         Args:
@@ -276,9 +268,7 @@ class TrainerR:
 
 
 # 1.6
-def eval_LinearRegression(
-    model: LinearRegression, loader: DataLoader
-) -> Tuple[float, float]:
+def eval_LinearRegression(model: LinearRegression, loader: DataLoader) -> Tuple[float, float]:
     r"""Evaluate the model on the given data.
 
     Args:
@@ -301,9 +291,7 @@ def eval_LinearRegression(
 
     # calculate a MSE Error and R^2:
     mse = np.mean((pred - target) ** 2)
-    r_squared = 1 - np.sum((target - pred) ** 2) / np.sum(
-        (target - np.mean(target)) ** 2
-    )
+    r_squared = 1 - np.sum((target - pred) ** 2) / np.sum((target - np.mean(target)) ** 2)
 
     print(f"MSE Error: {mse:.4f}")
     print(f"R^2: {r_squared:.4f}")
@@ -317,9 +305,7 @@ def eval_LinearRegression(
 
 
 # 2.1
-def data_preprocessing_classification(
-    data_path: str, mean: float, saved_to_disk: bool = False
-) -> Dataset:
+def data_preprocessing_classification(data_path: str, mean: float, saved_to_disk: bool = False) -> Dataset:
     r"""Load and preprocess the training data for the classification task.
 
     Args:
@@ -470,9 +456,7 @@ class BCELoss(Loss):
         # Compute the binary cross entropy loss. Make sure y_pred and y_true have the same shape
         return -np.mean(y_true * new_log(y_pred) + (1 - y_true) * new_log(1 - y_pred))
 
-    def backward(
-        self, x: np.ndarray, y_pred: np.ndarray, y_true: np.ndarray
-    ) -> dict[str, np.ndarray]:
+    def backward(self, x: np.ndarray, y_pred: np.ndarray, y_true: np.ndarray) -> dict[str, np.ndarray]:
         r"""Compute the gradients of the loss with respect to the parameters.
 
         Args:

@@ -114,13 +114,9 @@ def main():
     # Load the dataset
     dataset = data_preprocessing_regression(cfg.data_dir)
 
-    trainloader, testloader = data_split_regression(
-        dataset, cfg.batch_size, cfg.shuffle
-    )
+    trainloader, testloader = data_split_regression(dataset, cfg.batch_size, cfg.shuffle)
 
-    results_path = (
-        Path(cfg.results_path + f"_{cfg.task}") if cfg.results_path else Path("results")
-    )
+    results_path = Path(cfg.results_path + f"_{cfg.task}") if cfg.results_path else Path("results")
 
     # Train
     print("***** Running training *****")
