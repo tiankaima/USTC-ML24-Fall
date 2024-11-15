@@ -75,9 +75,7 @@ class Loss:
         """
         raise NotImplementedError
 
-    def backward(
-        self, x: np.ndarray, y_pred: np.ndarray, y_true: np.ndarray
-    ) -> dict[str, np.ndarray]:
+    def backward(self, x: np.ndarray, y_pred: np.ndarray, y_true: np.ndarray) -> dict[str, np.ndarray]:
         r"""Compute the gradients of the loss with respect to the parameters
 
         Args:
@@ -108,9 +106,7 @@ class SGD:
         step: Update the parameters with the gradients
     """
 
-    def __init__(
-        self, params: Iterator, lr: float, lr_decay: float = 0.99, decay_every: int = 10
-    ):
+    def __init__(self, params: Iterator, lr: float, lr_decay: float = 0.99, decay_every: int = 10):
         r"""Initialize the optimizer.
 
         Args:
