@@ -1,0 +1,45 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "grade.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "grade.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--sample_index",
+                "1",
+                "--results_path",
+                "../results/2024-12-15_14-49-00/"
+            ]
+        },
+        {
+            "name": "visualization.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "visualization.py",
+            "console": "integratedTerminal",
+            "args": ["--results_path", "../results/2024-12-15_14-49-00/"]
+        },
+        {
+            "name": "visualization.py | cluster_label",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "visualization.py",
+            "console": "integratedTerminal",
+            "args": ["--results_path", "../results/2024-12-15_14-49-00/", "--cluster_label"]
+        },
+        {
+            "name": "train.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "train.py",
+            "console": "integratedTerminal",
+            "args": ["--use_pca"]
+        }
+    ]
+}

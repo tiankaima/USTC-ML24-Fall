@@ -95,9 +95,10 @@ class GMM:
         gamma = np.zeros((N, self.n_components))
 
         # 1.1 E-step: Compute the responsibilities
-        # BEGIN_YOUR_CODE
-        raise Exception("Not implemented yet")
-        # END_YOUR_CODE
+        for i in range(self.n_components):
+            gamma[:, i] = self.pi[i] * self._gaussian(X, self.means[i], np.linalg.inv(self.covs[i]), np.linalg.det(self.covs[i]))
+        gamma = gamma / np.sum(gamma, axis=1, keepdims=True)
+
         return gamma
 
     def _m_step(self, X: np.ndarray, gamma: np.ndarray):
@@ -112,9 +113,11 @@ class GMM:
         n_soft = np.sum(gamma, axis=0)  # [K,]
 
         # 1.2 M-step: Update the parameters
-        # BEGIN_YOUR_CODE
-        raise Exception("Not implemented yet")
-        # END_YOUR_CODE
+        for i in range(self.n_components):
+            self.means[i] = np.sum(gamma[:, i].reshape(-1, 1) * X, axis=0) / n_soft[i]
+            diff = X - self.means[i]
+            self.covs[i] = diff.T @ np.diag(gamma[:, i]) @ diff / n_soft[i]
+            self.pi[i] = n_soft[i] / N
 
     def _gaussian(self, X: np.ndarray, mean: np.ndarray, inv_cov: np.ndarray, det: float) -> np.ndarray:
         """
@@ -216,9 +219,13 @@ class PCA:
             - X: np.ndarray, shape (N, D), Data.
         """
         # 2.1 Compute the principal components
-        # BEGIN_YOUR_CODE
-        raise Exception("Not implemented yet")
-        # END_YOUR_CODE
+
+        self.mean = np.mean(X, axis=0)
+        X = X - self.mean
+        cov = X.T @ X / X.shape[0]
+        eigvals, eigvecs = np.linalg.eigh(cov)
+        idx = np.argsort(eigvals)[::-1]
+        self.components = eigvecs[:, idx[:self.dim]].T
 
     def transform(self, X: np.ndarray) -> np.ndarray:
         """
@@ -277,9 +284,16 @@ def sample_from_gmm(gmm: GMM, pca: PCA, label: int, path: Union[str, Path]):
         - label: int, Cluster label.
     """
     # 5.1
-    # BEGIN_YOUR_CODE
-    raise Exception("Not implemented yet")
-    # END_YOUR_CODE
+    # Sample from the GMM
+
+    z = np.random.randn(1, gmm.data_dim)
+    x = z @ gmm.covs[label] + gmm.means[label]
+
+    # 5.2
+    # Project the sample back to the original space
+
+    x = pca.inverse_transform(x)
+    sample = x.reshape(1, 28, 28)
 
     # Save an example image(you can change this part of the code if you want)
     sample = Image.fromarray(sample[0], mode="L")  # if sample shape is (1, 28, 28)
