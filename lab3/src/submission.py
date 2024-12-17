@@ -96,7 +96,9 @@ class GMM:
 
         # 1.1 E-step: Compute the responsibilities
         for i in range(self.n_components):
-            gamma[:, i] = self.pi[i] * self._gaussian(X, self.means[i], np.linalg.inv(self.covs[i]), np.linalg.det(self.covs[i]))
+            gamma[:, i] = self.pi[i] * self._gaussian(
+                X, self.means[i], np.linalg.inv(self.covs[i]), np.linalg.det(self.covs[i])
+            )
         gamma = gamma / np.sum(gamma, axis=1, keepdims=True)
 
         return gamma
@@ -225,7 +227,7 @@ class PCA:
         cov = X.T @ X / X.shape[0]
         eigvals, eigvecs = np.linalg.eigh(cov)
         idx = np.argsort(eigvals)[::-1]
-        self.components = eigvecs[:, idx[:self.dim]].T
+        self.components = eigvecs[:, idx[: self.dim]].T
 
     def transform(self, X: np.ndarray) -> np.ndarray:
         """
